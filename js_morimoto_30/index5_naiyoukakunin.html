@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="icon" href="">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
+
+    <link rel="stylesheet" href="css/stylesheet.css">
+    <link rel="stylesheet" href="css/reset.css">
+
+
+
+    <script>
+        const firebaseConfig = {
+          apiKey: "",
+          authDomain: "lom-test-eab46.firebaseapp.com",
+          databaseURL:"https://lom-test-eab46-default-rtdb.firebaseio.com/",
+          projectId: "lom-test-eab46",
+          storageBucket: "lom-test-eab46.appspot.com",
+          messagingSenderId: "166032801420",
+          appId: "1:166032801420:web:a2db0dd44185b6844f05a9"
+        };
+   
+
+
+
+    // Initialize Firebase 初期化
+    firebase.initializeApp(firebaseConfig);
+
+    const newPostRef = firebase.database().ref();
+
+    let uid = "";
+
+    firebase.auth().onAuthStateChanged( (user) => {
+    if(user) {
+    
+      loginUser = user.displayName;
+      uid = user.uid;
+      console.log(uid)
+
+      $("#output").prepend(loginUser);
+
+    }
+    else {
+      username.innerText = 'Not Login';
+    }
+
+
+  console.log(uid);
+
+    // 受信処理
+    newPostRef.child(uid).once("child_added", function (snapshot) {
+      // snapshot.forEach((childSnapshot) => {
+
+
+      let v = snapshot.val(); //ここに保存されたデータが全て入ってくる
+      // let k = data.key; 
+
+      console.log(v); 
+      // console.log(k);
+      console.log(uid);
+
+      let str = `<p>
+        ${v.shopname}<br>
+        ${v.postcode}<br>
+        ${v.prefecture}<br>
+        ${v.municipalities}<br>
+        ${v.adress}<br>
+        ${v.mail}<br>
+        ${v.url}<br>
+        ${v.space}<br>
+        ${v.text}<br>
+        </p>`;
+
+        let str0 = `<p> ${v.shopname} </P>`;
+        let str1 = `<p> ${v.postcode} </P>`;
+        let str2 = `<p> ${v.prefecture} </P>`;
+        let str3 = `<p> ${v.municipalities} </P>`;
+        let str4 = `<p> ${v.adress} </P>`;
+        let str5 = `<p> ${v.mail} </P>`;
+        let str6 = `<p> ${v.url} </P>`;
+        let str7 = `<p> ${v.space} </P>`;
+        let str8 = `<p> ${v.text} </P>`;
+
+console.log(str);
+console.log(str0)
+// $("#output2").prepend(str);
+$(".set").prepend(str0);
+$(".set1").prepend(str1);
+$(".set2").prepend(str2);
+$(".set3").prepend(str3);
+$(".set4").prepend(str4);
+$(".set5").prepend(str5);
+$(".set6").prepend(str6);
+$(".set7").prepend(str7);
+$(".set8").prepend(str8);
+    });
+  });
+
+  </script>
+
+<body>
+  
+  <div id=wrappar>
+
+
+    <div id="output"></div>
+
+    <!-- <div id="output2"></div> -->
+
+
+    <div class="kakunin"> 
+      <!-- 店名 -->
+      <span>店名</span>
+      <span class="set"></span>
+    </div>
+
+    <div class="kakunin"> 
+      <!-- 郵便番号 -->
+      <span>郵便番号</span>
+      <span class="set1"></span>
+    </div>
+
+    <div class="kakunin"> 
+      <!-- 県名 -->
+      <span>県名</span>
+      <span class="set2"></span>
+    </div>
+
+    <div class="kakunin"> 
+      <!-- 市町村 -->
+      <span>市町村</span>
+      <span class="set3"></span>
+    </div>
+
+    <div class="kakunin"> 
+      <!-- 番地 -->
+      <span>番地</span>
+      <span class="set4"></span>
+    </div>
+
+    <div class="kakunin"> 
+      <!-- メール -->
+      <span>mail</span>
+      <span class="set5"></span>
+    </div>
+
+    <div class="kakunin"> 
+      <!-- URL -->
+      <span>サイトURL</span>
+      <span class="set6"></span>
+    </div>
+
+    <div class="kakunin"> 
+      <!-- スペース -->
+      <span>貸し出しスペース</span>
+      <span class="set7"></span>
+    </div>
+    
+    <div class="kakunin"> 
+      <!-- テキストエリア -->
+      <span>タグ</span>
+      <span class="set8"></span>
+    </div>
+
+    <div class="button">
+      <div>
+        <!-- 戻るボタン -->
+        <a href="index4_touroku.html">
+          <button id="send">修正</button>
+        </a>
+      </div>
+
+      <div>
+        <!-- 登録ボタン -->
+        <a href="index3_admin.html">
+          <button id="send">登録</button>
+        </a>
+      </div>
+    </div>
+
+
+  </div>
+
+
+
+</body>
+
+
+
+
+
+
+    <script src="js/main.js"></script>
+
+</body>
+</html>

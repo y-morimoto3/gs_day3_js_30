@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+
+
+    <link rel="icon" href="">
+    <link rel="stylesheet" href="css/stylesheet.css">
+    <link rel="stylesheet" href="css/reset.css">
+
+
+    <script>
+        const firebaseConfig = {
+          apiKey: "",
+          authDomain: "lom-test-eab46.firebaseapp.com",
+          databaseURL:"https://lom-test-eab46-default-rtdb.firebaseio.com/",
+          projectId: "lom-test-eab46",
+          storageBucket: "lom-test-eab46.appspot.com",
+          messagingSenderId: "166032801420",
+          appId: "1:166032801420:web:a2db0dd44185b6844f05a9"
+        };
+   
+    // Initialize Firebase 初期化
+    firebase.initializeApp(firebaseConfig);
+
+    firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        // User is signed in.
+        console.log('auth user', user);
+    } else {
+        // No user is signed in.
+    }
+
+    firebase.auth().onAuthStateChanged( (user) => {
+    if(user) {
+    //   loginUser = ${user.displayName}; 
+      loginUser = user.displayName;
+    //   username.innerHTML = ${loginUser}さん;
+    //   postuser.innerHTML =  ${loginUser};
+
+      $("#output").prepend(loginUser);
+
+    }
+    else {
+      username.innerText = 'Not Login';
+    }
+  });
+
+
+
+});
+
+
+
+
+
+
+</script>
+
+</head>
+
+<body>
+
+<div id="wrappar">
+
+<div id="container">
+    <header>
+        <P>LOM_test</P>
+    </header>
+
+    <div id="output"></div>
+
+    <div class="c1">
+        <a href="https://www.yahoo.co.jp/">
+            <div class="hako">
+                <img src="img/calendar.png" alt="予約設定" id="img">
+                <p>カレンダー</p>
+            </div>
+        </a>
+        
+        <a href="https://www.yahoo.co.jp/">
+            <div class="hako">
+                <img src="img/chat.png" alt="チャット" id="img">
+                <p>チャット</p>
+            </div>
+        </a>
+    
+
+    
+        <a href="index4_touroku.html">
+            <div class="hako">
+                <img src="img/shop.png" alt="店舗情報設定" id="img">
+                <p>店舗情報</p>
+            </div>
+        </a>
+
+        <a href="https://www.yahoo.co.jp/">
+            <div class="hako">
+                <img src="img/mypage.png" alt="MYpage" id="img">
+                <p>My Page</p>
+            </div>
+        </a>
+    </div>
+
+
+</div>
+
+</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="icon" href="">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
+
+    <link rel="stylesheet" href="css/stylesheet.css">
+    <link rel="stylesheet" href="css/reset.css">
+
+
+
+    <script>
+        const firebaseConfig = {
+          apiKey: "",
+          authDomain: "lom-test-eab46.firebaseapp.com",
+          databaseURL:"https://lom-test-eab46-default-rtdb.firebaseio.com/",
+          projectId: "lom-test-eab46",
+          storageBucket: "lom-test-eab46.appspot.com",
+          messagingSenderId: "166032801420",
+          appId: "1:166032801420:web:a2db0dd44185b6844f05a9"
+        };
+   
+    // Initialize Firebase 初期化
+    firebase.initializeApp(firebaseConfig);
+
+    firebase.auth().onAuthStateChanged( (user) => {
+    if(user) {
+    //   loginUser = ${user.displayName}; 
+      loginUser = user.displayName;
+      uid = user.uid;
+      console.log(uid)
+
+
+      $("#output").prepend(loginUser);
+
+    }
+    else {
+      username.innerText = 'Not Login';
+    }
+
+    
+  });
+
+    </script>
+<body>
+  <div id="wrappar">
+
+  <div id="output"></div>
+
+
+    <!-- コンテンツ表示画面 -->
+
+  <div id="form">
+    <div class="input"> 
+      <!-- 店名 -->
+      <span>店名</span>
+      <input type="text" id="shopname">
+    </div>
+
+    <div class="input">
+      <!-- 郵便番号 -->
+      <span>郵便番号</span>
+      <input type="text" id="pcode">
+    </div>
+
+    <div class="input">
+      <!-- 県名 -->
+      <span>県名</span>
+      <input type="text" id="prefecture">
+    </div>
+
+    <div class="input">
+      <!-- 市町村 -->
+      <span>市町村</span>
+      <input type="text" id="municipalities">
+    </div>
+
+    <div class="input">
+      <!-- 番地 -->
+      <span>番地</span>
+      <input type="text" id="adress">
+    </div>
+
+    <div class="input">
+      <!-- メール -->
+      <span>mail</span>
+      <input type="email" id="mail">
+    </div>
+
+    <div class="input">
+      <!-- URL -->
+      <span>サイトURL</span>
+      <input type="URL" id="url">
+    </div>
+
+
+
+    <div class="input">
+      <!-- スペース -->
+      <span>貸し出しスペース</span>
+      <input type="text" id="space">
+    </div>
+
+    <!-- <div class="input"> -->
+      <!-- カテゴリ -->
+      <!-- <span>業態</span> -->
+      <!-- <input type="checkbox" id="category"> -->
+    <!-- </div> -->
+    
+    <div class="input">
+      <!-- テキストエリア -->
+      <span>タグ</span>
+      <textarea name="" id="text" cols="20" rows="5"></textarea>
+    </div>
+
+    <div>
+      <!-- 登録ボタン -->
+      <button id="send">登録</button>
+    </div>
+
+  </div>
+
+
+    <div>
+      <!-- 保存されたデータが表示される箇所 -->
+      <div id="output"></div>
+    </div>
+
+
+
+    <script>
+    // firebaseのデーターベース（保存させる場所）を使いますよ
+    const newPostRef = firebase.database().ref();
+
+      // let uid = firebase.auth().currentUser ;
+
+      function currentUser(){
+        const user = firebase.auth().currentUser ;
+
+        if(user){
+          console.log(user) ;
+
+        }else{
+
+        }
+        
+
+      }
+
+      
+
+
+  // 送信ボタンをクリックされたら次の処理をする
+  $("#send").on("click", function () {
+        // データを登録で送る
+        newPostRef.child(uid).push({
+          
+        
+
+          // uid:firebaseAuth.getInstance().getUserByEmail(email),
+          uid: uid ,
+          shopname: $("#shopname").val(), //店名
+          postcode: $("#pcode").val(), //郵便番号
+          prefecture: $("#prefecture").val(), //県
+          municipalities: $("#municipalities").val(), //市町村
+          adress: $("#adress").val(), //番地
+          mail: $("#mail").val(), //メール
+          url: $("#url").val(), //URL
+          space: $("#space").val(), //スペース
+          text: $("#text").val(), //タグ
+            
+        
+
+        
+        
+
+        })
+        window.location.href = 'index5_naiyoukakunin.html';
+
+        // $("#text").val(""); 
+        // $("#username").val(""); 
+      });
+
+    </script>
+
+
+      <script src="js/main.js"></script>
+  </div>
+</body>
+</html>

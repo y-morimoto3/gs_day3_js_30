@@ -1,0 +1,100 @@
+<!-- firebaseドキュメントより -->
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="icon" href="">
+   
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+    
+
+    <link rel="stylesheet" href="css/stylesheet.css">
+    <link rel="stylesheet" href="css/reset.css">
+
+
+    <script>
+        const firebaseConfig = {
+          apiKey: "",
+          authDomain: "lom-test-eab46.firebaseapp.com",
+          databaseURL:"https://lom-test-eab46-default-rtdb.firebaseio.com/",
+          projectId: "lom-test-eab46",
+          storageBucket: "lom-test-eab46.appspot.com",
+          messagingSenderId: "166032801420",
+          appId: "1:166032801420:web:a2db0dd44185b6844f05a9"
+        };
+   
+    // Initialize Firebase 初期化
+    firebase.initializeApp(firebaseConfig);
+
+</script>
+
+    <!-- firebaseUIを追加 head内のfirebaseコンソールの初期化スにペットの下に -->
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth__ja.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+    
+    <script>
+    // SDKをインポートした後、Auth UIを初期化します
+    let ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+    // ログイン
+    ui.start('#firebaseui-auth-container', {
+  signInOptions: [
+    firebase.auth.EmailAuthProvider.PROVIDER_ID
+  ],
+  // Other config options...
+  });
+
+  // let ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+  // firebaseUiの設定を指定
+    let uiConfig = {
+            callbacks: {
+                signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+                    console.log("ログイン成功")
+                    return true;
+                },
+
+                uiShown: function() {
+            // The widget is rendered.
+            // Hide the loader.
+            document.getElementById('loader').style.display = 'none';
+            }
+
+
+            },
+           
+            signInFlow: 'popup',
+          //認証成功後のページ
+        signInSuccessUrl: 'index3_admin.html',
+            
+        signInOptions: [
+                firebase.auth.EmailAuthProvider.PROVIDER_ID,
+            ],
+
+          
+        };
+
+
+        ui.start('#firebaseui-auth-container', uiConfig);
+
+    </script>
+
+</head>
+<body>
+
+  <div id="firebaseui-auth-container"></div>
+  <div id="loader">Loading...</div>
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+</html>
